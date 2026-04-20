@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import ProductPage from "./pages/ProductPage";
+import Footer from "./components/Footer";
 
 /* Daftar Tugas Anda */
 /*
@@ -27,34 +30,17 @@ import { useEffect, useState } from "react";
 /* URL Desain User Interface : https://cdn.dribbble.com/userupload/10414553/file/original-2d905d116a30699e9bb1bf0e30df9ac2.png?resize=752x3593&vertical=center */
 
 export default function App() {
-  const [productData, setProductData] = useState([]);
-
-  const getProductData = async () => {
-    fetch('https://dummyjson.com/products')
-    .then(res => res.json())
-    .then((result) => {
-      setProductData(result.products)
-    });
-  }
-
-  console.log({ productData })
-
-  useEffect(() => {
-    getProductData();
-    return () => {}
-  }, [])
+  const [openSearch, setOpenSearch] = useState(false);
 
   return (
-    <main>
-      <h1 className="text-2xl font-semibold">Hello World</h1>
-      <section className="space-y-3 px-10">
-      {productData.map((item, index) => (
-        <div key={index} className="border px-6 py-4 rounded">
-          <h2 className="font-medium text-lg">{item.title}</h2>
-          <h4>{item.description}</h4>
-        </div>
-      ))}
+    <main className="flex flex-col min-h-screen">
+      <Navbar onOpenSearch={() => setOpenSearch(true)} />
+
+      <section className="flex-grow px-6 md:px-10 py-6">
+        <ProductPage openSearch={openSearch} setOpenSearch={setOpenSearch} />
       </section>
+
+      <Footer />
     </main>
-  )
+  );
 }
