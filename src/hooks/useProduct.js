@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getProducts, getCategories } from "../services/ProductService";
 
 export function useProducts() {
   const [allProducts, setAllProducts] = useState([]);
@@ -20,12 +21,12 @@ export function useProducts() {
         setLoading(true);
 
         const [productRes, categoryRes] = await Promise.all([
-          fetch("https://dummyjson.com/products?limit=100"),
-          fetch("https://dummyjson.com/products/categories"),
+          getProducts(100, 0),
+          getCategories(),
         ]);
 
-        const productData = await productRes.json();
-        const categoryData = await categoryRes.json();
+        const productData = await productRes;
+        const categoryData = await categoryRes;
 
         setAllProducts(productData.products || []);
         setCategories(["all", ...categoryData]);

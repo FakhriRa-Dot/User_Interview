@@ -1,5 +1,5 @@
 export default function Pagination({ page, onChange, total }) {
-  const limit = 8;
+  const limit = 16;
   const totalPages = Math.ceil(total / limit);
 
   const getPages = () => {
