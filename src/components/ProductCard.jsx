@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export default function ProductCard({ product, onClick }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [openSearch, setOpenSearch] = useState(false);
 
   return (
     <div
@@ -24,15 +23,6 @@ export default function ProductCard({ product, onClick }) {
 
         <p className="text-green-600 font-bold mt-2">${product.price}</p>
       </div>
-
-      {openSearch && (
-        <SearchModal
-          onClose={() => setOpenSearch(false)}
-          setSearch={setSearch}
-          allProducts={allProducts}
-          onSelectProduct={(product) => setSelectedProduct(product)}
-        />
-      )}
     </div>
   );
 }
